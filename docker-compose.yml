@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  # MySQL Database Container
+  mysqldb:
+    image: mysql:8.0
+    container_name: interviewroom-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - seniorconnect-net
+
   # RabbitMQ Message Broker
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -52,9 +65,12 @@ services:
       - "8081:8081"
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:auth_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/auth_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -68,9 +84,12 @@ services:
       - "8082:8082"
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:user_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/user_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -85,10 +104,13 @@ services:
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
       - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:mentorship_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mentorship_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
       - rabbitmq
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -103,10 +125,13 @@ services:
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
       - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:interview_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/interview_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
       - rabbitmq
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -121,10 +146,13 @@ services:
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
       - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:resource_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/resource_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
       - rabbitmq
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -139,10 +167,13 @@ services:
     environment:
       - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
       - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:notification_db;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/notification_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - eureka-server
       - rabbitmq
+      - mysqldb
     networks:
       - seniorconnect-net
 
@@ -154,8 +185,6 @@ services:
     container_name: seniorconnect-frontend
     ports:
       - "3000:3000"
-    environment:
-      - VITE_API_GATEWAY_URL=http://localhost:8080/api
     depends_on:
       - api-gateway
     networks:
@@ -164,3 +193,6 @@ services:
 networks:
   seniorconnect-net:
     driver: bridge
+
+volumes:
+  mysql_data:
