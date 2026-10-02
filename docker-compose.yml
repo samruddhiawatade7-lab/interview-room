@@ -1,0 +1,166 @@
+version: '3.8'
+
+services:
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: seniorconnect-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - seniorconnect-net
+
+  # Eureka Discovery Server
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - PORT=8761
+    networks:
+      - seniorconnect-net
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+    networks:
+      - seniorconnect-net
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:auth_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+    networks:
+      - seniorconnect-net
+
+  # User Service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:user_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+    networks:
+      - seniorconnect-net
+
+  # Mentorship Service
+  mentorship-service:
+    build:
+      context: ./mentorship-service
+      dockerfile: Dockerfile
+    container_name: mentorship-service
+    ports:
+      - "8083:8083"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:mentorship_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - seniorconnect-net
+
+  # Interview Service
+  interview-service:
+    build:
+      context: ./interview-service
+      dockerfile: Dockerfile
+    container_name: interview-service
+    ports:
+      - "8084:8084"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:interview_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - seniorconnect-net
+
+  # Resource Service
+  resource-service:
+    build:
+      context: ./resource-service
+      dockerfile: Dockerfile
+    container_name: resource-service
+    ports:
+      - "8085:8085"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:resource_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - seniorconnect-net
+
+  # Notification Service
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "8086:8086"
+    environment:
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:notification_db;DB_CLOSE_DELAY=-1
+    depends_on:
+      - eureka-server
+      - rabbitmq
+    networks:
+      - seniorconnect-net
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: seniorconnect-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_GATEWAY_URL=http://localhost:8080/api
+    depends_on:
+      - api-gateway
+    networks:
+      - seniorconnect-net
+
+networks:
+  seniorconnect-net:
+    driver: bridge
