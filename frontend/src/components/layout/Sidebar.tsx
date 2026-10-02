@@ -20,7 +20,10 @@ import {
   PlusCircle, 
   LayoutDashboard,
   ShieldCheck,
-  CheckCircle
+  CheckCircle,
+  GraduationCap,
+  Building2,
+  HelpCircle
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -44,34 +47,43 @@ export const Sidebar: React.FC = () => {
     <aside className="w-64 bg-[#0B1416] border-r border-slate-800 shrink-0 min-h-[calc(100vh-4rem)] p-4 flex flex-col justify-between">
       <div className="space-y-6">
         
+        {/* COLLEGE BADGE HEADER */}
+        <div className="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <div className="flex items-center space-x-2 text-xs font-black text-white">
+            <GraduationCap className="w-4 h-4 text-orange-400" />
+            <span>COLLEGE PLACEMENT HUB</span>
+          </div>
+          <p className="text-[10px] text-slate-400">Exclusive Alumni & Junior Guidance</p>
+        </div>
+
         {/* FEEDS */}
         <div className="space-y-1">
-          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">FEEDS</div>
+          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">CAMPUS FEEDS</div>
           <NavLink to="/" className={linkClass} end>
             <Flame className="w-4 h-4 text-orange-500" />
-            <span>🔥 Feed / Discussions</span>
+            <span>🔥 Feed / Q&A</span>
           </NavLink>
           <NavLink to="/interview-experiences" className={linkClass}>
             <Briefcase className="w-4 h-4 text-purple-400" />
-            <span>📈 Top Experiences</span>
+            <span>📈 Campus Experiences</span>
           </NavLink>
           <NavLink to="/resources" className={linkClass}>
             <BookOpen className="w-4 h-4 text-amber-400" />
-            <span>📚 Resource Hub</span>
+            <span>📚 College Study Material</span>
           </NavLink>
         </div>
 
         {/* SUBREDDIT COMMUNITIES */}
         <div className="space-y-1">
-          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">COMMUNITIES</div>
+          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">CAMPUS CHANNELS</div>
           {[
+            { tag: 'r/on-campus-drives', count: '142 posts' },
+            { tag: 'r/college-dsa-qa', count: '310 posts' },
+            { tag: 'r/senior-referrals', count: '85 posts' },
             { tag: 'r/google', count: '248 posts' },
             { tag: 'r/microsoft', count: '182 posts' },
-            { tag: 'r/amazon', count: '310 posts' },
-            { tag: 'r/dsa-prep', count: '412 posts' },
-            { tag: 'r/mock-interviews', count: '95 posts' },
-            { tag: 'r/resume-reviews', count: '295 posts' },
-            { tag: 'r/system-design', count: '140 posts' },
+            { tag: 'r/amazon', count: '210 posts' },
+            { tag: 'r/resume-reviews', count: '195 posts' },
           ].map((c) => (
             <NavLink key={c.tag} to={`/?channel=${encodeURIComponent(c.tag)}`} className={communityLinkClass}>
               <span className="font-bold text-xs">{c.tag}</span>
@@ -82,37 +94,37 @@ export const Sidebar: React.FC = () => {
 
         {/* MENTORSHIP SERVICES */}
         <div className="space-y-1">
-          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">MENTORSHIP & TOOLS</div>
+          <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 px-3.5 mb-2">COLLEGE ALUMNI & TOOLS</div>
           <NavLink to="/student/seniors" className={linkClass}>
             <Search className="w-4 h-4 text-indigo-400" />
-            <span>Find Senior Mentors</span>
+            <span>Find College Alumni</span>
           </NavLink>
           
           {user?.role === 'STUDENT' && (
             <>
               <NavLink to="/student/dashboard" className={linkClass}>
                 <LayoutDashboard className="w-4 h-4 text-cyan-400" />
-                <span>Student Dashboard</span>
+                <span>Student Portal</span>
               </NavLink>
               <NavLink to="/student/sessions" className={linkClass}>
                 <Calendar className="w-4 h-4 text-purple-400" />
-                <span>Booked Sessions</span>
+                <span>Alumni Sessions</span>
               </NavLink>
               <NavLink to="/student/chat" className={linkClass}>
                 <MessageSquare className="w-4 h-4 text-emerald-400" />
-                <span>Live Chat Room</span>
+                <span>Chat with Seniors</span>
               </NavLink>
               <NavLink to="/student/preparation" className={linkClass}>
                 <Target className="w-4 h-4 text-pink-400" />
-                <span>Prep Trackers</span>
+                <span>DSA & CS Trackers</span>
               </NavLink>
               <NavLink to="/student/applications" className={linkClass}>
                 <Kanban className="w-4 h-4 text-amber-400" />
-                <span>Company Applications</span>
+                <span>Placement Tracker</span>
               </NavLink>
               <NavLink to="/student/bookmarks" className={linkClass}>
                 <Bookmark className="w-4 h-4 text-indigo-400" />
-                <span>Saved Bookmarks</span>
+                <span>Saved Questions</span>
               </NavLink>
             </>
           )}
@@ -121,23 +133,23 @@ export const Sidebar: React.FC = () => {
             <>
               <NavLink to="/senior/dashboard" className={linkClass}>
                 <LayoutDashboard className="w-4 h-4 text-orange-400" />
-                <span>Senior Dashboard</span>
+                <span>Senior Mentor Dashboard</span>
               </NavLink>
               <NavLink to="/senior/requests" className={linkClass}>
                 <Users className="w-4 h-4 text-indigo-400" />
-                <span>Mentorship Requests</span>
+                <span>Junior Requests</span>
               </NavLink>
               <NavLink to="/senior/sessions" className={linkClass}>
                 <Calendar className="w-4 h-4 text-purple-400" />
-                <span>Sessions & Availability</span>
+                <span>1-on-1 Availability</span>
               </NavLink>
               <NavLink to="/student/chat" className={linkClass}>
                 <MessageSquare className="w-4 h-4 text-emerald-400" />
-                <span>Chat Messages</span>
+                <span>Junior Chats</span>
               </NavLink>
               <NavLink to="/senior/share-experience" className={linkClass}>
                 <PlusCircle className="w-4 h-4 text-orange-400" />
-                <span>Post Experience</span>
+                <span>Post Experience / DSA Question</span>
               </NavLink>
             </>
           )}
@@ -146,15 +158,11 @@ export const Sidebar: React.FC = () => {
             <>
               <NavLink to="/admin/dashboard" className={linkClass}>
                 <LayoutDashboard className="w-4 h-4 text-emerald-400" />
-                <span>Admin Analytics</span>
+                <span>College Admin Analytics</span>
               </NavLink>
               <NavLink to="/admin/users" className={linkClass}>
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Senior Verification</span>
-              </NavLink>
-              <NavLink to="/admin/moderation" className={linkClass}>
-                <CheckCircle className="w-4 h-4 text-indigo-400" />
-                <span>Content Moderation</span>
+                <Users className="w-4 h-4 text-cyan-400" />
+                <span>User Verification</span>
               </NavLink>
             </>
           )}
@@ -162,8 +170,10 @@ export const Sidebar: React.FC = () => {
 
       </div>
 
-      <div className="pt-4 border-t border-slate-800 text-[11px] text-slate-500 text-center font-semibold">
-        INTERVIEW ROOM v2.0 • Reddit Edition
+      {/* FOOTER */}
+      <div className="pt-4 border-t border-slate-800 text-[10px] text-slate-500 font-semibold space-y-1">
+        <div className="text-slate-300 font-bold">COLLEGE INTERVIEW ROOM v2.5</div>
+        <div>Exclusive Campus Placement Portal</div>
       </div>
     </aside>
   );

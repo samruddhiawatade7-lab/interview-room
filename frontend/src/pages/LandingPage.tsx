@@ -29,7 +29,8 @@ import {
   ArrowRight,
   Star,
   Zap,
-  Building2
+  Building2,
+  HelpCircle
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
@@ -115,13 +116,12 @@ export const LandingPage: React.FC = () => {
   });
 
   const channelsList = [
-    { name: 'r/all', label: 'All Feeds', icon: Flame, color: 'text-orange-400' },
-    { name: 'r/google', label: 'Google', icon: Building2, color: 'text-blue-400' },
-    { name: 'r/microsoft', label: 'Microsoft', icon: Building2, color: 'text-teal-400' },
-    { name: 'r/amazon', label: 'Amazon', icon: Building2, color: 'text-amber-400' },
-    { name: 'r/dsa-prep', label: 'DSA Prep', icon: Target, color: 'text-emerald-400' },
-    { name: 'r/mock-interviews', label: 'Mock Interviews', icon: Zap, color: 'text-purple-400' },
-    { name: 'r/resume-reviews', label: 'Resume Reviews', icon: FileText, color: 'text-[#FF4500]' },
+    { name: 'r/all', label: 'All Campus Feeds', icon: Flame, color: 'text-orange-400' },
+    { name: 'r/on-campus-drives', label: 'On-Campus Drives', icon: Building2, color: 'text-blue-400' },
+    { name: 'r/college-dsa-qa', label: 'College DSA Q&A', icon: Target, color: 'text-emerald-400' },
+    { name: 'r/senior-referrals', label: 'Alumni Referrals', icon: Sparkles, color: 'text-purple-400' },
+    { name: 'r/google', label: 'Google', icon: Building2, color: 'text-amber-400' },
+    { name: 'r/amazon', label: 'Amazon', icon: Building2, color: 'text-teal-400' },
   ];
 
   return (
@@ -139,22 +139,22 @@ export const LandingPage: React.FC = () => {
             
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-bold">
-                <Sparkles className="w-4 h-4 text-orange-400 animate-pulse" />
-                <span>INTERVIEW ROOM • REDDIT COMMUNITY & MENTORSHIP PLATFORM</span>
+                <GraduationCap className="w-4 h-4 text-orange-400" />
+                <span>COLLEGE EXCLUSIVE PLACEMENT & SENIOR GUIDANCE HUB</span>
               </div>
 
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-                Crack Tech Interviews with <span className="bg-gradient-to-r from-[#FF4500] via-orange-400 to-amber-300 bg-clip-text text-transparent">Senior Engineers</span>
+                College Seniors Share <span className="bg-gradient-to-r from-[#FF4500] via-orange-400 to-amber-300 bg-clip-text text-transparent">Interview Experiences & DSA Questions</span>
               </h1>
 
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-                Connect 1-on-1 with verified alumni from <strong>Google, Amazon, Microsoft & Meta</strong>. Access authentic interview experiences, ATS resume audits, DSA trackers, and live mock scorecards.
+                Connect directly with your college seniors and alumni working at <strong>Google, Amazon, Microsoft & TCS Digital</strong>. Access authentic campus drive questions, DSA solutions, and book 1-on-1 guidance sessions.
               </p>
 
               {/* QUICK DEMO LOGIN SHORTCUTS */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <span className="text-xs font-bold text-slate-400 flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-amber-400" /> 1-Click Demo Login:
+                  <Zap className="w-3.5 h-3.5 text-amber-400" /> 1-Click Role Login:
                 </span>
 
                 <button
@@ -163,7 +163,7 @@ export const LandingPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-[#FF4500] hover:bg-orange-600 text-white font-extrabold text-xs shadow-lg shadow-orange-500/30 transition-all flex items-center space-x-1.5 transform hover:-translate-y-0.5"
                 >
                   <GraduationCap className="w-4 h-4" />
-                  <span>Student View</span>
+                  <span>College Junior View</span>
                 </button>
 
                 <button
@@ -172,7 +172,7 @@ export const LandingPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-extrabold text-xs border border-slate-700 transition-all flex items-center space-x-1.5"
                 >
                   <Briefcase className="w-4 h-4 text-indigo-400" />
-                  <span>Senior Mentor View</span>
+                  <span>College Senior View</span>
                 </button>
 
                 <button
@@ -181,7 +181,7 @@ export const LandingPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-extrabold text-xs border border-slate-800 transition-all flex items-center space-x-1.5"
                 >
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  <span>Admin Panel</span>
+                  <span>Placement Cell Admin</span>
                 </button>
               </div>
 
@@ -190,25 +190,25 @@ export const LandingPage: React.FC = () => {
             {/* QUICK HIGHLIGHT METRICS */}
             <div className="lg:col-span-4 grid grid-cols-2 gap-3">
               <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur text-center space-y-1">
-                <div className="text-xl font-black text-white">2,500+</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Offers Cracked</div>
+                <div className="text-xl font-black text-white">450+</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Campus Offers</div>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur text-center space-y-1">
-                <div className="text-xl font-black text-emerald-400">210+</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Verified Seniors</div>
+                <div className="text-xl font-black text-emerald-400">120+</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">College Alumni</div>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur text-center space-y-1">
                 <div className="text-xl font-black text-amber-400 flex items-center justify-center gap-1">
                   <span>4.9</span> <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                 </div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Session Rating</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Senior Rating</div>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur text-center space-y-1">
                 <div className="text-xl font-black text-orange-400">100%</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Verified Reviews</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Verified College Batch</div>
               </div>
             </div>
 
@@ -256,7 +256,7 @@ export const LandingPage: React.FC = () => {
                   }`}
                 >
                   <Flame className="w-4 h-4 text-orange-300" />
-                  <span>Hot</span>
+                  <span>Hot Discussions</span>
                 </button>
 
                 <button
@@ -266,7 +266,7 @@ export const LandingPage: React.FC = () => {
                   }`}
                 >
                   <TrendingUp className="w-4 h-4 text-amber-300" />
-                  <span>Top</span>
+                  <span>Top Answered</span>
                 </button>
 
                 <button
@@ -276,7 +276,7 @@ export const LandingPage: React.FC = () => {
                   }`}
                 >
                   <Sparkles className="w-4 h-4 text-purple-300" />
-                  <span>New</span>
+                  <span>Latest Campus Drives</span>
                 </button>
               </div>
 
@@ -287,25 +287,26 @@ export const LandingPage: React.FC = () => {
               )}
             </div>
 
-            {/* Quick Post Prompt Input Box */}
+            {/* Quick Post / Ask Question Prompt */}
             <div className="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center space-x-3 shadow-md">
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FF4500] to-amber-500 p-0.5 shrink-0 flex items-center justify-center font-black text-white text-xs">
-                R
+                🎓
               </div>
               <Link
                 to="/create-post"
-                className="flex-1 px-4 py-2.5 rounded-full bg-slate-950 border border-slate-800 text-slate-400 text-xs font-medium hover:border-slate-700 transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-full bg-slate-950 border border-slate-800 text-slate-400 text-xs font-medium hover:border-slate-700 transition-colors flex items-center justify-between"
               >
-                Create a post in r/google, r/dsa-prep, or ask verified seniors...
+                <span>Ask college seniors a question or post on-campus interview experience...</span>
+                <Plus className="w-4 h-4 text-orange-400" />
               </Link>
             </div>
 
             {/* POSTS FEED */}
             {loading ? (
-              <div className="p-12 text-center text-xs text-slate-400">Loading Interview Room feed...</div>
+              <div className="p-12 text-center text-xs text-slate-400">Loading College Interview Room feed...</div>
             ) : sortedPosts.length === 0 ? (
               <div className="p-12 text-center rounded-3xl bg-slate-900 border border-slate-800 text-xs text-slate-400">
-                No posts found for this community filter. Be the first to publish a post!
+                No posts found for this campus filter. Be the first junior or senior to post!
               </div>
             ) : (
               sortedPosts.map((post) => {
@@ -378,17 +379,17 @@ export const LandingPage: React.FC = () => {
                         <div className="pt-3 border-t border-slate-800 space-y-3 text-xs text-slate-300">
                           {post.oaTopics && (
                             <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800">
-                              <span className="font-bold text-orange-400 block mb-1">Online Assessment (OA):</span>
+                              <span className="font-bold text-orange-400 block mb-1">Campus OA / Aptitude Topics:</span>
                               {post.oaTopics}
                             </div>
                           )}
                           <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800">
-                            <span className="font-bold text-purple-400 block mb-1">Technical Interview Questions:</span>
+                            <span className="font-bold text-purple-400 block mb-1">Technical Round Questions & Solutions:</span>
                             <div className="whitespace-pre-line">{post.technicalQuestions}</div>
                           </div>
                           {post.prepTips && (
                             <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800">
-                              <span className="font-bold text-emerald-400 block mb-1">Senior Preparation Tips:</span>
+                              <span className="font-bold text-emerald-400 block mb-1">College Senior Advice:</span>
                               {post.prepTips}
                             </div>
                           )}
@@ -402,14 +403,14 @@ export const LandingPage: React.FC = () => {
                           className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 transition-colors"
                         >
                           <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
-                          <span>{post.commentsCount} Comments</span>
+                          <span>{post.commentsCount} Answers & Comments</span>
                         </button>
 
                         <button 
                           onClick={() => setExpandedPostId(isExpanded ? null : post.id)}
                           className="flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-orange-400 font-bold transition-colors"
                         >
-                          <span>{isExpanded ? 'Collapse' : 'Read Full Experience'}</span>
+                          <span>{isExpanded ? 'Collapse' : 'Read Full Q&A'}</span>
                           {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                         </button>
                       </div>
@@ -428,7 +429,7 @@ export const LandingPage: React.FC = () => {
             {/* Quick Access Feature Portal Cards */}
             <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-3 shadow-xl">
               <h3 className="font-extrabold text-sm text-white flex items-center gap-1.5">
-                <Zap className="w-4 h-4 text-amber-400" /> Platform Toolkit
+                <GraduationCap className="w-4 h-4 text-amber-400" /> College Toolkit
               </h3>
 
               <div className="space-y-2">
@@ -438,7 +439,7 @@ export const LandingPage: React.FC = () => {
                 >
                   <div className="flex items-center space-x-2.5">
                     <Users className="w-4 h-4 text-orange-400" />
-                    <span>Senior Mentors Directory</span>
+                    <span>College Alumni Directory</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-orange-400 transition-colors" />
                 </Link>
@@ -449,7 +450,7 @@ export const LandingPage: React.FC = () => {
                 >
                   <div className="flex items-center space-x-2.5">
                     <Target className="w-4 h-4 text-emerald-400" />
-                    <span>DSA & CS Prep Tracker</span>
+                    <span>College DSA & CS Sheet</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors" />
                 </Link>
@@ -460,7 +461,7 @@ export const LandingPage: React.FC = () => {
                 >
                   <div className="flex items-center space-x-2.5">
                     <Briefcase className="w-4 h-4 text-purple-400" />
-                    <span>Job Applications Kanban</span>
+                    <span>Campus Application Kanban</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-purple-400 transition-colors" />
                 </Link>
@@ -471,7 +472,7 @@ export const LandingPage: React.FC = () => {
                 >
                   <div className="flex items-center space-x-2.5">
                     <FileText className="w-4 h-4 text-blue-400" />
-                    <span>ATS Resume Review Portal</span>
+                    <span>Senior Resume Review</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
                 </Link>
@@ -482,16 +483,16 @@ export const LandingPage: React.FC = () => {
             <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-4 shadow-xl">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-xl bg-[#FF4500] flex items-center justify-center font-black text-white text-lg">
-                  r/
+                  🎓
                 </div>
                 <div>
-                  <h3 className="font-black text-base text-white">Interview Room</h3>
-                  <div className="text-[11px] text-slate-400">Placement Community for Tech Candidates</div>
+                  <h3 className="font-black text-base text-white">Campus Interview Room</h3>
+                  <div className="text-[11px] text-slate-400">Exclusive College Senior-Junior Network</div>
                 </div>
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed">
-                Connect with verified seniors from Google, Microsoft, Amazon, and Atlassian. Read authentic interview experiences, get resume reviews, and book 1-on-1 mock interviews.
+                Connect with verified college seniors from Google, Microsoft, Amazon, and TCS. Read authentic on-campus interview experiences, ask DSA questions, and book 1-on-1 guidance.
               </p>
 
               <Link
@@ -499,7 +500,7 @@ export const LandingPage: React.FC = () => {
                 className="w-full py-3 rounded-2xl bg-[#FF4500] hover:bg-orange-600 text-white font-extrabold text-xs shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-1.5 transition-all"
               >
                 <Plus className="w-4 h-4" />
-                <span>Create Community Post</span>
+                <span>Post Campus Experience / Q&A</span>
               </Link>
             </div>
 
@@ -507,7 +508,7 @@ export const LandingPage: React.FC = () => {
             <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-4 shadow-xl">
               <div className="flex items-center justify-between">
                 <h3 className="font-extrabold text-sm text-white flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-orange-400" /> Top Verified Senior Mentors
+                  <Award className="w-4 h-4 text-orange-400" /> Top College Alumni Mentors
                 </h3>
                 <Link to="/student/seniors" className="text-[11px] font-bold text-orange-400 hover:underline">View All</Link>
               </div>
