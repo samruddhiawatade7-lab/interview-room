@@ -175,10 +175,10 @@ export const Navbar: React.FC = () => {
                 {/* Profile Avatar / Karma */}
                 <div className="flex items-center space-x-2 pl-2 border-l border-slate-800">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-orange-500 to-amber-500 p-0.5 font-bold text-xs flex items-center justify-center text-white">
-                    {user.name.charAt(0)}
+                    {(user?.name || user?.email || 'User').charAt(0).toUpperCase()}
                   </div>
                   <div className="hidden lg:block text-left">
-                    <div className="text-xs font-bold text-slate-200">{user.name}</div>
+                    <div className="text-xs font-bold text-slate-200">{user?.name || user?.email || 'User'}</div>
                     <div className="text-[10px] text-orange-400 font-bold flex items-center gap-1">
                       🔥 {user.karma || 420} Karma • {user.role}
                     </div>

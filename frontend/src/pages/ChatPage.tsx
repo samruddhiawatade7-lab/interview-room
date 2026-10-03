@@ -62,7 +62,7 @@ export const ChatPage: React.FC = () => {
       const res = await api.post('/chat/send', {
         mentorshipRequestId: activeRequest.id,
         senderId: user.id,
-        senderName: user.name,
+        senderName: user?.name || user?.email || 'User',
         senderRole: user.role,
         recipientId,
         content,

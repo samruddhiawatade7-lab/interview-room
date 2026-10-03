@@ -32,7 +32,7 @@ export const CreatePostPage: React.FC = () => {
         title,
         content,
         authorId: user.id,
-        authorName: user.name,
+        authorName: user?.name || user?.email || 'User',
         authorRole: user.role,
         authorCompany: user.company || 'Tier 1 Tech',
         flair,

@@ -65,7 +65,7 @@ export const SeniorProfilePage: React.FC = () => {
     try {
       await api.post('/mentorship/requests', {
         studentId: user.id,
-        studentName: user.name,
+        studentName: user?.name || user?.email || 'Student',
         seniorId: senior?.userId || senior?.id,
         seniorName: senior?.name,
         purpose,
@@ -89,7 +89,7 @@ export const SeniorProfilePage: React.FC = () => {
     try {
       await api.post('/sessions/book', {
         studentId: user.id,
-        studentName: user.name,
+        studentName: user?.name || user?.email || 'Student',
         seniorId: senior?.userId || senior?.id,
         seniorName: senior?.name,
         topic: purpose,
@@ -113,7 +113,7 @@ export const SeniorProfilePage: React.FC = () => {
     try {
       await api.post('/resume-reviews', {
         studentId: user.id,
-        studentName: user.name,
+        studentName: user?.name || user?.email || 'Student',
         seniorId: senior?.userId || senior?.id,
         seniorName: senior?.name,
         resumeUrl,
@@ -137,7 +137,7 @@ export const SeniorProfilePage: React.FC = () => {
     try {
       await api.post('/mock-interviews', {
         studentId: user.id,
-        studentName: user.name,
+        studentName: user?.name || user?.email || 'Student',
         seniorId: senior?.userId || senior?.id,
         seniorName: senior?.name,
         interviewType: mockType,

@@ -32,7 +32,7 @@ export const SeniorShareExperiencePage: React.FC = () => {
       if (type === 'EXPERIENCE') {
         await api.post('/interviews/experiences', {
           seniorId: user.id,
-          authorName: user.name,
+          authorName: user?.name || user?.email || 'Senior Mentor',
           company,
           role,
           graduationYear: user.graduationYear || 2023,
@@ -53,7 +53,7 @@ export const SeniorShareExperiencePage: React.FC = () => {
           tags: category,
           url,
           uploaderId: user.id,
-          uploaderName: user.name,
+          uploaderName: user?.name || user?.email || 'Senior Mentor',
           uploaderRole: 'SENIOR',
         });
         setSuccess('Resource shared successfully!');
