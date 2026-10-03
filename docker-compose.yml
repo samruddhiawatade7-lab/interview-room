@@ -9,189 +9,44 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: interviewroom_db
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
-      - seniorconnect-net
+      - interviewroom-net
 
-  # RabbitMQ Message Broker
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: seniorconnect-rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    networks:
-      - seniorconnect-net
-
-  # Eureka Discovery Server
-  eureka-server:
+  # Monolithic Spring Boot Backend
+  backend:
     build:
-      context: ./eureka-server
+      context: ./backend
       dockerfile: Dockerfile
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-      - PORT=8761
-    networks:
-      - seniorconnect-net
-
-  # API Gateway
-  api-gateway:
-    build:
-      context: ./api-gateway
-      dockerfile: Dockerfile
-    container_name: api-gateway
+    container_name: interviewroom-backend
     ports:
       - "8080:8080"
     environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-    depends_on:
-      - eureka-server
-    networks:
-      - seniorconnect-net
-
-  # Auth Service
-  auth-service:
-    build:
-      context: ./auth-service
-      dockerfile: Dockerfile
-    container_name: auth-service
-    ports:
-      - "8081:8081"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/auth_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/interviewroom_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
-      - eureka-server
       - mysqldb
     networks:
-      - seniorconnect-net
+      - interviewroom-net
 
-  # User Service
-  user-service:
-    build:
-      context: ./user-service
-      dockerfile: Dockerfile
-    container_name: user-service
-    ports:
-      - "8082:8082"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/user_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - eureka-server
-      - mysqldb
-    networks:
-      - seniorconnect-net
-
-  # Mentorship Service
-  mentorship-service:
-    build:
-      context: ./mentorship-service
-      dockerfile: Dockerfile
-    container_name: mentorship-service
-    ports:
-      - "8083:8083"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mentorship_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - eureka-server
-      - rabbitmq
-      - mysqldb
-    networks:
-      - seniorconnect-net
-
-  # Interview Service
-  interview-service:
-    build:
-      context: ./interview-service
-      dockerfile: Dockerfile
-    container_name: interview-service
-    ports:
-      - "8084:8084"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/interview_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - eureka-server
-      - rabbitmq
-      - mysqldb
-    networks:
-      - seniorconnect-net
-
-  # Resource Service
-  resource-service:
-    build:
-      context: ./resource-service
-      dockerfile: Dockerfile
-    container_name: resource-service
-    ports:
-      - "8085:8085"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/resource_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - eureka-server
-      - rabbitmq
-      - mysqldb
-    networks:
-      - seniorconnect-net
-
-  # Notification Service
-  notification-service:
-    build:
-      context: ./notification-service
-      dockerfile: Dockerfile
-    container_name: notification-service
-    ports:
-      - "8086:8086"
-    environment:
-      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka/
-      - RABBITMQ_HOST=rabbitmq
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/notification_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - eureka-server
-      - rabbitmq
-      - mysqldb
-    networks:
-      - seniorconnect-net
-
-  # React Frontend
+  # React 18 Frontend
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: seniorconnect-frontend
+    container_name: interviewroom-frontend
     ports:
       - "3000:3000"
     depends_on:
-      - api-gateway
+      - backend
     networks:
-      - seniorconnect-net
+      - interviewroom-net
 
 networks:
-  seniorconnect-net:
+  interviewroom-net:
     driver: bridge
 
 volumes:

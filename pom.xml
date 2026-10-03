@@ -8,17 +8,10 @@
     <artifactId>seniorconnect-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>seniorconnect-parent</name>
-    <description>SeniorConnect Microservices Platform Parent POM</description>
+    <name>interviewroom-parent</name>
+    <description>Interview Room Monolithic Application Parent POM</description>
 
     <modules>
-        <module>eureka-server</module>
-        <module>api-gateway</module>
-        <module>auth-service</module>
-        <module>user-service</module>
-        <module>mentorship-service</module>
-        <module>interview-service</module>
-        <module>resource-service</module>
-        <module>notification-service</module>
+        <module>backend</module>
     </modules>
 </project>
